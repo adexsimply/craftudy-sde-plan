@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Craftudy SDE Cycle 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>body{margin:0}img{max-width:100%}</style>
+<style>
+  :root{
+    --ground:#F3F5F2; --surface:#FFFFFF; --ink:#16211C; --muted:#5B6B63; --line:#D6DDD8;
+    --accent:#1E6B57; --accent-ink:#0F4A3B; --accent-soft:#E3F0EA; --warn:#9A6412; --warn-soft:#F7ECD6; --bad:#A8372E; --bad-soft:#F6E1DE;
+    --display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    --mono:"JetBrains Mono", "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0F1512; --surface:#171E1A; --ink:#E6ECE8; --muted:#98A79F; --line:#28332D;
+      --accent:#5CB99B; --accent-ink:#8ED4BC; --accent-soft:#16302A; --warn:#D9A24A; --warn-soft:#332913; --bad:#E07A70; --bad-soft:#3A1A17;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0F1512; --surface:#171E1A; --ink:#E6ECE8; --muted:#98A79F; --line:#28332D;
+    --accent:#5CB99B; --accent-ink:#8ED4BC; --accent-soft:#16302A; --warn:#D9A24A; --warn-soft:#332913; --bad:#E07A70; --bad-soft:#3A1A17;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+  a{color:var(--accent-ink)}
+  .wrap{max-width:74ch;margin:0 auto;padding:40px 20px 80px}
+  header.hero{padding:16px 0 28px;border-bottom:1px solid var(--line);margin-bottom:36px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,52px);line-height:1.02;margin:0 0 14px;letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:20px;color:var(--muted);margin:0;max-width:60ch;text-wrap:pretty}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:26px}
+  .fact{border-top:2px solid var(--accent);padding-top:8px}
+  .fact b{display:block;font-family:var(--display);font-size:20px;font-weight:700}
+  .fact span{font-size:14px;color:var(--muted)}
+  h2{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em;margin:44px 0 12px;text-wrap:balance}
+  h3{font-family:var(--display);font-weight:700;font-size:19px;margin:22px 0 6px}
+  p{margin:0 0 14px;text-wrap:pretty}
+  ul{padding-left:20px;margin:0 0 14px}
+  li{margin:0 0 6px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 8px}
+  @media (max-width:640px){.two{grid-template-columns:1fr}}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+  .panel h3{margin-top:0}
+  .panel.bad h3{color:var(--bad)}
+  .panel.good h3{color:var(--accent-ink)}
+  .panel ul{margin-bottom:0}
+  .callout{background:var(--accent-soft);border-left:3px solid var(--accent);padding:14px 16px;border-radius:0 6px 6px 0;margin:18px 0}
+  .callout p:last-child{margin:0}
+  table{width:100%;border-collapse:collapse;font-size:15.5px;margin:10px 0 18px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .tablewrap{overflow-x:auto}
+  .weeks{list-style:none;padding:0;margin:14px 0 0;border-left:2px solid var(--line)}
+  .week{position:relative;padding:0 0 22px 26px}
+  .week::before{content:"";position:absolute;left:-7px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--ground);border:2px solid var(--accent)}
+  .week.call::before{background:var(--accent)}
+  .wk{font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+  .wk b{color:var(--accent-ink);font-weight:600}
+  .week h3{margin:2px 0 6px;font-size:19px}
+  .week dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;font-size:15.5px}
+  .week dt{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+  .week dd{margin:0}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px;margin-left:8px;vertical-align:middle}
+  .tag.call{background:var(--accent-soft);color:var(--accent-ink)}
+  .rules{counter-reset:r;list-style:none;padding:0;margin:0}
+  .rules li{counter-increment:r;position:relative;padding:10px 0 10px 44px;border-bottom:1px solid var(--line)}
+  .rules li::before{content:counter(r,decimal-leading-zero);position:absolute;left:0;top:11px;font-family:var(--mono);font-size:13px;color:var(--accent-ink);font-weight:600}
+  .rules b{font-weight:600}
+  .retired{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px}
+  .retired span{background:var(--warn-soft);color:var(--warn);font-family:var(--mono);font-size:12.5px;padding:4px 10px;border-radius:3px;text-decoration:line-through}
+  .keep span{background:var(--accent-soft);color:var(--accent-ink);text-decoration:none}
+  footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+  @media (prefers-reduced-motion:no-preference){.week{transition:none}}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="hero">
+    <p class="eyebrow">Craftudy · Cycle 1 · 14 Sep – 6 Dec 2026</p>
+    <h1>One app, from your laptop to production, in twelve weeks.</h1>
+    <p class="lede">Backend and DevOps foundations for Jude and Andrew, built on the JavaScript you already have. No lectures. One deliverable a week. A mentor who reviews instead of chasing.</p>
+    <div class="facts">
+      <div class="fact"><b>12 weeks</b><span>Mon 14 Sep to Sun 6 Dec</span></div>
+      <div class="fact"><b>1 deliverable</b><span>PR open every Sunday 9pm</span></div>
+      <div class="fact"><b>6 calls</b><span>Sunday 8pm, even weeks, 60 min</span></div>
+      <div class="fact"><b>3 problems</b><span>DSA in JavaScript, weekly</span></div>
+    </div>
+  </header>
+
+  <h2>How a week works</h2>
+  <div class="tablewrap">
+  <table>
+    <thead><tr><th>When</th><th>What</th><th>Who</th></tr></thead>
+    <tbody>
+      <tr><td>Every day</td><td>60 minutes minimum on this week's build, then a 3-line log in <code>logs/YYYY-MM-DD.md</code>. Twenty focused minutes is a valid day when life happens.</td><td>Learner</td></tr>
+      <tr><td>Sunday 9pm</td><td>Weekly deliverable pushed and a pull request opened. The PR template asks what runs, whether the done-when line was met, and where you want review most.</td><td>Learner</td></tr>
+      <tr><td>Monday</td><td>Peer review: at least two real comments on the other learner's PR.</td><td>Learners</td></tr>
+      <tr><td>By Wednesday</td><td>Mentor review on the PR: approve or request changes.</td><td>Shina</td></tr>
+      <tr><td>Sunday 8pm, even weeks</td><td>60-minute call. Demo, questions, the next fortnight. Holds even if one person shows up.</td><td>All</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Two GitHub Actions in every learner repo do the nagging: a 23:30 check that opens a <em>missed-log</em> issue when today's log is absent, and a Sunday digest that counts logs, commits and open PRs. A Sunday summary across all repos lands with the mentor automatically.</p>
+
+  <h2>The twelve weeks</h2>
+  <p>Each week has one build, a short learn list, a DSA set of three problems, and a done-when line. One primary source per week; an AI assistant for everything else, on the condition that you can explain every line you ship.</p>
+  <ol class="weeks">
+    <li class="week"><div class="wk"><b>Week 1</b> · 14–20 Sep</div><h3>Linux shell and Git, properly</h3>
+      <dl><dt>Build</dt><dd>A bash script that archives a folder with a timestamp, plus your repo set up from the template with a first PR merged.</dd>
+      <dt>Learn</dt><dd>Ubuntu (VM, WSL2 or a VPS), core shell commands, SSH keys, branch/commit/PR/merge, why secrets never go in a repo.</dd>
+      <dt>DSA</dt><dd>Two Sum · Best Time to Buy and Sell Stock · Contains Duplicate</dd>
+      <dt>Done</dt><dd>The script produces a dated archive; the repo has 7 daily logs and one merged PR.</dd></dl></li>
+    <li class="week call"><div class="wk"><b>Week 2</b> · 21–27 Sep <span class="tag call">Call Sun 27</span></div><h3>Node without a framework</h3>
+      <dl><dt>Build</dt><dd>A plain Node HTTP server serving <code>GET /tasks</code> and <code>POST /tasks</code> from a JSON file.</dd>
+      <dt>Learn</dt><dd>Modules, <code>fs</code>, the event loop, callbacks vs promises vs async/await, <code>process.env</code>, npm scripts.</dd>
+      <dt>DSA</dt><dd>Valid Anagram · Valid Palindrome · Reverse Words in a String</dd>
+      <dt>Done</dt><dd><code>curl</code> can create and list tasks and the data survives a restart.</dd></dl></li>
+    <li class="week"><div class="wk"><b>Week 3</b> · 28 Sep–4 Oct</div><h3>Express and REST</h3>
+      <dl><dt>Build</dt><dd>Tasks API v1: full CRUD in memory, validation, correct status codes, a central error handler, request logging.</dd>
+      <dt>Learn</dt><dd>Routing, middleware order, REST conventions, HTTP status codes, validation with zod, Postman or curl.</dd>
+      <dt>DSA</dt><dd>Group Anagrams · Top K Frequent Elements · Two Sum with a hash map</dd>
+      <dt>Done</dt><dd>A Postman collection in the repo exercises every route and every error path.</dd></dl></li>
+    <li class="week call"><div class="wk"><b>Week 4</b> · 5–11 Oct <span class="tag call">Call Sun 11</span></div><h3>PostgreSQL</h3>
+      <dl><dt>Build</dt><dd>Tasks API v2: <code>users</code> and <code>tasks</code> tables with a foreign key, a migration script, the API reading and writing through <code>pg</code>.</dd>
+      <dt>Learn</dt><dd>Tables and types, keys, one-to-many, JOIN, indexes, EXPLAIN, migrations, connection pooling.</dd>
+      <dt>DSA</dt><dd>Valid Parentheses · Min Stack · Queue using Stacks</dd>
+      <dt>Done</dt><dd>Fresh database + migrate + start = working API. No manual table creation.</dd></dl></li>
+    <li class="week"><div class="wk"><b>Week 5</b> · 12–18 Oct</div><h3>Auth and security</h3>
+      <dl><dt>Build</dt><dd>Signup and login, JWT-protected routes, each user sees only their own tasks, rate limiting, helmet, <code>.env.example</code> committed.</dd>
+      <dt>Learn</dt><dd>bcrypt, JWT structure and expiry, Bearer tokens, the top three API vulnerabilities, CORS basics.</dd>
+      <dt>DSA</dt><dd>Reverse Linked List · Merge Two Sorted Lists · Linked List Cycle</dd>
+      <dt>Done</dt><dd>User A cannot read, edit or delete User B's tasks, and you can demonstrate it.</dd></dl></li>
+    <li class="week call"><div class="wk"><b>Week 6</b> · 19–25 Oct <span class="tag call">Call Sun 25 · mid-cycle demo</span></div><h3>Tests and code quality</h3>
+      <dl><dt>Build</dt><dd>Jest and Supertest covering auth and CRUD, ESLint and Prettier, a README a stranger can follow in two minutes.</dd>
+      <dt>Learn</dt><dd>Unit vs integration tests, test databases, fixtures, coverage, what a good README contains.</dd>
+      <dt>DSA</dt><dd>Binary Search · First and Last Position · Search in Rotated Sorted Array</dd>
+      <dt>Done</dt><dd>Clone, follow the README, green tests.</dd></dl></li>
+    <li class="week"><div class="wk"><b>Week 7</b> · 26 Oct–1 Nov</div><h3>Docker</h3>
+      <dl><dt>Build</dt><dd>A multi-stage Dockerfile with a non-root user, and a compose file running API and Postgres with a volume, env vars and a health check.</dd>
+      <dt>Learn</dt><dd>Images vs containers, layers and caching, <code>.dockerignore</code>, volumes, networks, health checks.</dd>
+      <dt>DSA</dt><dd>Maximum Subarray · Longest Substring Without Repeating Characters · Container With Most Water</dd>
+      <dt>Done</dt><dd><code>docker compose up</code> on a clean machine gives a working API, and down then up reproduces it.</dd></dl></li>
+    <li class="week call"><div class="wk"><b>Week 8</b> · 2–8 Nov <span class="tag call">Call Sun 8</span></div><h3>CI with GitHub Actions</h3>
+      <dl><dt>Build</dt><dd>Lint and tests on every PR, image build on main, push to GitHub Container Registry, branch protection requiring green checks.</dd>
+      <dt>Learn</dt><dd>Workflow YAML, triggers, jobs and steps, Postgres as a CI service, secrets, caching, token permissions.</dd>
+      <dt>DSA</dt><dd>Fibonacci with memoisation · Subsets · Permutations</dd>
+      <dt>Done</dt><dd>A PR with a failing test cannot merge; a merge to main produces a tagged image.</dd></dl></li>
+    <li class="week"><div class="wk"><b>Week 9</b> · 9–15 Nov</div><h3>Deploy to a real server</h3>
+      <dl><dt>Build</dt><dd>The API live over HTTPS on a real domain: Ubuntu VPS, firewall, Docker, nginx reverse proxy, TLS via certbot, a persistent database volume.</dd>
+      <dt>Learn</dt><dd>Provisioning, SSH hardening, nginx, DNS records, Let's Encrypt, database backups.</dd>
+      <dt>DSA</dt><dd>Maximum Depth of Binary Tree · Invert Binary Tree · Level Order Traversal</dd>
+      <dt>Done</dt><dd>The health endpoint returns 200 from a phone on mobile data.</dd></dl></li>
+    <li class="week call"><div class="wk"><b>Week 10</b> · 16–22 Nov <span class="tag call">Call Sun 22</span></div><h3>Continuous deployment and observability</h3>
+      <dl><dt>Build</dt><dd>Merge to main deploys automatically. Structured logs, a health check that tests the database, an uptime monitor, a documented rollback.</dd>
+      <dt>Learn</dt><dd>Deploy pipelines, basic zero-downtime restarts, log levels, correlation IDs, what to alert on.</dd>
+      <dt>DSA</dt><dd>Validate BST · Lowest Common Ancestor · Kth Smallest in a BST</dd>
+      <dt>Done</dt><dd>Break production on purpose during the call, show the alert, roll back in under five minutes.</dd></dl></li>
+    <li class="week"><div class="wk"><b>Week 11</b> · 23–29 Nov</div><h3>A client on top</h3>
+      <dl><dt>Build</dt><dd>A small React app with login, task list, create, complete and delete, talking to your API with JWT. Deployed on Vercel or Netlify.</dd>
+      <dt>Learn</dt><dd>Fetch with auth headers, token storage trade-offs, loading and error states, frontend environment variables.</dd>
+      <dt>DSA</dt><dd>Number of Islands · Flood Fill · Clone Graph</dd>
+      <dt>Done</dt><dd>Your mum can use it from her phone.</dd></dl></li>
+    <li class="week call"><div class="wk"><b>Week 12</b> · 30 Nov–6 Dec <span class="tag call">Call Sun 6 · final demos</span></div><h3>Ship and present</h3>
+      <dl><dt>Build</dt><dd>Final README with an architecture diagram, a runbook for deploy, rollback and restore, a five-minute demo video, a one-page "what I learned".</dd>
+      <dt>Interview</dt><dd>30 minutes with Shina: walk through the system, then two DSA problems from the cycle, live.</dd>
+      <dt>DSA</dt><dd>Re-solve any three earlier problems without looking.</dd>
+      <dt>Done</dt><dd>You would send the repo link to a hiring manager today.</dd></dl></li>
+  </ol>
+
+  <h2>Rules</h2>
+  <ol class="rules">
+    <li><b>Deliverable beats attendance.</b> Nobody is graded on joining a call. You are graded on what is in the repo on Sunday night.</li>
+    <li><b>Two missed weekly deliverables and you pause</b> until the next cycle. No chasing, no hard feelings.</li>
+    <li><b>Ask early, in writing.</b> Stuck more than 45 minutes: write the blocker in your log. Try an AI assistant first, then a peer, then Shina.</li>
+    <li><b>Build, don't watch.</b> Videos and articles are reference. The task is a thing that runs.</li>
+    <li><b>One track.</b> Park other ideas in <code>later.md</code> and move on.</li>
+    <li><b>Three DSA problems a week, in JavaScript.</b> Approach in plain English before code. Log time per problem.</li>
+    <li><b>Commitment week for newcomers.</b> Success and Pamilerin are welcome after a full Week 1: seven logs and the PR.</li>
+    <li><b>Everything visible inside the cohort.</b> Repos and logs are open to every learner. Accountability is the point.</li>
+  </ol>
+
+  <h2>Tools</h2>
+  <p>Kept, because they are where the work lives:</p>
+  <div class="retired keep"><span>GitHub repos + PRs</span><span>GitHub Actions</span><span>WhatsApp for talk only</span><span>An AI assistant as tutor</span></div>
+  <p>Retired, because they became the work:</p>
+  <div class="retired"><span>Trello boards</span><span>Slack</span><span>Discord</span><span>Resource tables</span><span>Shared Udemy login</span><span>Zoom Pro</span></div>
+
+  <h2>Parked for cycle 2</h2>
+  <p>Kubernetes, Terraform, system design theory, Redis and caching, message queues, GraphQL, React Native and Flutter, Web3. Every one of these is easier once you have run one real service in production and been paged by it.</p>
+
+  <footer>Craftudy SDE Cycle 1 · Prepared 6 September 2026 · Start date Monday 14 September 2026.</footer>
+</div>
+
+</body>
+</html>
