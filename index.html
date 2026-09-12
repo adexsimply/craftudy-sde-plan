@@ -99,14 +99,15 @@
   <table>
     <thead><tr><th>When</th><th>What</th><th>Who</th></tr></thead>
     <tbody>
-      <tr><td>Every day</td><td>60 minutes minimum on this week's build, then a 3-line log in <code>logs/YYYY-MM-DD.md</code>. Twenty focused minutes is a valid day when life happens.</td><td>Learner</td></tr>
-      <tr><td>Sunday 9pm</td><td>Weekly deliverable pushed and a pull request opened. The PR template asks what runs, whether the done-when line was met, and where you want review most.</td><td>Learner</td></tr>
+      <tr><td>Every day</td><td>60 minutes minimum on this week's build, then a 3-line log in <code>logs/YYYY-MM-DD.md</code>, <strong>committed and pushed the same day</strong>. Twenty focused minutes is a valid day when life happens.</td><td>Learner</td></tr>
+      <tr><td>Sunday 9pm</td><td>Pull request opened from the week's branch into <code>main</code>. The form asks what runs, whether the done-when line was met, and where you want review most. That filled-in form is the submission.</td><td>Learner</td></tr>
       <tr><td>Monday</td><td>Peer review: at least two real comments on the other learner's PR.</td><td>Learners</td></tr>
       <tr><td>By Wednesday</td><td>Mentor review on the PR: approve or request changes.</td><td>Shina</td></tr>
       <tr><td>Sunday 8pm, even weeks</td><td>60-minute call. Demo, questions, the next fortnight. Holds even if one person shows up.</td><td>All</td></tr>
     </tbody>
   </table>
   </div>
+  <div class="callout"><p><strong>One week = one branch = one pull request.</strong> Start <code>week-1</code> on Monday, push a log every day, open the pull request on Sunday. Full walkthrough with a worked example: <a href="https://github.com/adexsimply/craftudy-sde-learner-template/blob/main/SUBMISSION.md">SUBMISSION.md</a>. The fortnightly call is for demos and questions, never for submitting work: the weekly pull request happens whether or not a call falls that week.</p></div>
   <p>Two GitHub Actions in every learner repo do the nagging: a 23:30 check that opens a <em>missed-log</em> issue when today's log is absent, and a Sunday digest that counts logs, commits and open PRs. A Sunday summary across all repos lands with the mentor automatically.</p>
 
   <h2>The twelve weeks</h2>
