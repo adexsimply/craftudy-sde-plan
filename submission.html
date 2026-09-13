@@ -4,32 +4,104 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>How a week works — Craftudy SDE</title>
-<style>body{margin:0}img{max-width:100%}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>body{margin:0}img{max-width:100%}</style>
 <style>
-  .wrap{max-width:78ch}
-  .doc h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 18px}
-  .doc h2{margin-top:40px}
+  :root{
+    --ground:#F3F5F2; --surface:#FFFFFF; --ink:#16211C; --muted:#5B6B63; --line:#D6DDD8;
+    --accent:#1E6B57; --accent-ink:#0F4A3B; --accent-soft:#E3F0EA; --warn:#9A6412; --warn-soft:#F7ECD6; --bad:#A8372E; --bad-soft:#F6E1DE;
+    --display:"Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+    --body:"Source Sans 3", "Segoe UI", system-ui, sans-serif;
+    --mono:"JetBrains Mono", "SF Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ground:#0F1512; --surface:#171E1A; --ink:#E6ECE8; --muted:#98A79F; --line:#28332D;
+      --accent:#5CB99B; --accent-ink:#8ED4BC; --accent-soft:#16302A; --warn:#D9A24A; --warn-soft:#332913; --bad:#E07A70; --bad-soft:#3A1A17;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0F1512; --surface:#171E1A; --ink:#E6ECE8; --muted:#98A79F; --line:#28332D;
+    --accent:#5CB99B; --accent-ink:#8ED4BC; --accent-soft:#16302A; --warn:#D9A24A; --warn-soft:#332913; --bad:#E07A70; --bad-soft:#3A1A17;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+  a{color:var(--accent-ink)}
+  .wrap{max-width:74ch;margin:0 auto;padding:40px 20px 80px}
+  header.hero{padding:16px 0 28px;border-bottom:1px solid var(--line);margin-bottom:36px}
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6vw,52px);line-height:1.02;margin:0 0 14px;letter-spacing:-.02em;text-wrap:balance}
+  .lede{font-size:20px;color:var(--muted);margin:0;max-width:60ch;text-wrap:pretty}
+  .facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:26px}
+  .fact{border-top:2px solid var(--accent);padding-top:8px}
+  .fact b{display:block;font-family:var(--display);font-size:20px;font-weight:700}
+  .fact span{font-size:14px;color:var(--muted)}
+  h2{font-family:var(--display);font-weight:700;font-size:28px;letter-spacing:-.01em;margin:44px 0 12px;text-wrap:balance}
+  h3{font-family:var(--display);font-weight:700;font-size:19px;margin:22px 0 6px}
+  p{margin:0 0 14px;text-wrap:pretty}
+  ul{padding-left:20px;margin:0 0 14px}
+  li{margin:0 0 6px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0 8px}
+  @media (max-width:640px){.two{grid-template-columns:1fr}}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+  .panel h3{margin-top:0}
+  .panel.bad h3{color:var(--bad)}
+  .panel.good h3{color:var(--accent-ink)}
+  .panel ul{margin-bottom:0}
+  .callout{background:var(--accent-soft);border-left:3px solid var(--accent);padding:14px 16px;border-radius:0 6px 6px 0;margin:18px 0}
+  .callout p:last-child{margin:0}
+  table{width:100%;border-collapse:collapse;font-size:15.5px;margin:10px 0 18px}
+  th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .tablewrap{overflow-x:auto}
+  .weeks{list-style:none;padding:0;margin:14px 0 0;border-left:2px solid var(--line)}
+  .week{position:relative;padding:0 0 22px 26px}
+  .week::before{content:"";position:absolute;left:-7px;top:9px;width:12px;height:12px;border-radius:50%;background:var(--ground);border:2px solid var(--accent)}
+  .week.call::before{background:var(--accent)}
+  .wk{font-family:var(--mono);font-size:12.5px;color:var(--muted);letter-spacing:.04em}
+  .wk b{color:var(--accent-ink);font-weight:600}
+  .week h3{margin:2px 0 6px;font-size:19px}
+  .week dl{margin:0;display:grid;grid-template-columns:max-content 1fr;gap:4px 12px;font-size:15.5px}
+  .week dt{font-family:var(--mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+  .week dd{margin:0}
+  .tag{display:inline-block;font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:3px;margin-left:8px;vertical-align:middle}
+  .tag.call{background:var(--accent-soft);color:var(--accent-ink)}
+  .rules{counter-reset:r;list-style:none;padding:0;margin:0}
+  .rules li{counter-increment:r;position:relative;padding:10px 0 10px 44px;border-bottom:1px solid var(--line)}
+  .rules li::before{content:counter(r,decimal-leading-zero);position:absolute;left:0;top:11px;font-family:var(--mono);font-size:13px;color:var(--accent-ink);font-weight:600}
+  .rules b{font-weight:600}
+  .retired{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 18px}
+  .retired span{background:var(--warn-soft);color:var(--warn);font-family:var(--mono);font-size:12.5px;padding:4px 10px;border-radius:3px;text-decoration:line-through}
+  .keep span{background:var(--accent-soft);color:var(--accent-ink);text-decoration:none}
+  footer{margin-top:48px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+  @media (prefers-reduced-motion:no-preference){.week{transition:none}}
+</style>
+<style>
+  .wrap{max-width:78ch;padding:36px 20px 80px}
+  .doc h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 18px;text-wrap:balance}
+  .doc h2{margin-top:42px}
   .doc h3{margin-top:26px;font-size:18px}
   .doc hr{border:0;border-top:1px solid var(--line);margin:34px 0}
-  .doc pre{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.5}
+  .doc pre{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.55}
   .doc code{font-family:var(--mono);font-size:.9em;background:var(--accent-soft);color:var(--accent-ink);padding:1px 5px;border-radius:3px}
   .doc pre code{background:none;color:inherit;padding:0}
-  .doc blockquote{margin:18px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+  .doc blockquote{margin:18px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 6px 6px 0;color:var(--ink)}
   .doc blockquote p:first-child{margin-top:0}
   .doc blockquote p:last-child{margin-bottom:0}
   .doc ol,.doc ul{padding-left:22px}
   .doc li{margin:0 0 7px}
   .doc a{color:var(--accent-ink)}
-  .doc .task-list-item{list-style:none}
-  .backlink{display:inline-block;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:26px}
+  .doc table{width:100%;border-collapse:collapse;font-size:15.5px}
+  .doc th,.doc td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line)}
+  .backlink{display:inline-block;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:28px}
   .backlink:hover{color:var(--accent-ink)}
 </style>
 
 </head>
 <body>
 <div class="wrap">
-<a class="backlink" href="./">← Cycle 1 plan</a>
+<a class="backlink" href="./">&larr; Cycle 1 plan</a>
 <article class="doc">
 <div class="markdown-heading"><h1 class="heading-element">How a week actually works</h1><a id="user-content-how-a-week-actually-works" class="anchor" aria-label="Permalink: How a week actually works" href="#how-a-week-actually-works"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>One week = one branch = one pull request. That is the whole "submission package".</p>
