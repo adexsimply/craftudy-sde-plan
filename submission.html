@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How a week works — Craftudy SDE</title>
+<style>body{margin:0}img{max-width:100%}</style>
+<style>body{margin:0}img{max-width:100%}</style>
+<style>
+  .wrap{max-width:78ch}
+  .doc h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,44px);line-height:1.05;letter-spacing:-.02em;margin:0 0 18px}
+  .doc h2{margin-top:40px}
+  .doc h3{margin-top:26px;font-size:18px}
+  .doc hr{border:0;border-top:1px solid var(--line);margin:34px 0}
+  .doc pre{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:13.5px;line-height:1.5}
+  .doc code{font-family:var(--mono);font-size:.9em;background:var(--accent-soft);color:var(--accent-ink);padding:1px 5px;border-radius:3px}
+  .doc pre code{background:none;color:inherit;padding:0}
+  .doc blockquote{margin:18px 0;padding:14px 18px;background:var(--surface);border-left:3px solid var(--accent);border-radius:0 6px 6px 0}
+  .doc blockquote p:first-child{margin-top:0}
+  .doc blockquote p:last-child{margin-bottom:0}
+  .doc ol,.doc ul{padding-left:22px}
+  .doc li{margin:0 0 7px}
+  .doc a{color:var(--accent-ink)}
+  .doc .task-list-item{list-style:none}
+  .backlink{display:inline-block;font-family:var(--mono);font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);text-decoration:none;margin-bottom:26px}
+  .backlink:hover{color:var(--accent-ink)}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+<a class="backlink" href="./">← Cycle 1 plan</a>
+<article class="doc">
+<div class="markdown-heading"><h1 class="heading-element">How a week actually works</h1><a id="user-content-how-a-week-actually-works" class="anchor" aria-label="Permalink: How a week actually works" href="#how-a-week-actually-works"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>One week = one branch = one pull request. That is the whole "submission package".</p>
+<p><strong>Always read the current version here:</strong> <a href="https://adexsimply.github.io/craftudy-sde-plan/submission.html" rel="nofollow">https://adexsimply.github.io/craftudy-sde-plan/submission.html</a>
+(This file is a snapshot from the day you created your repo. The web version is the live one.)</p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">First, what a pull request actually is</h2><a id="user-content-first-what-a-pull-request-actually-is" class="anchor" aria-label="Permalink: First, what a pull request actually is" href="#first-what-a-pull-request-actually-is"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>You already know: clone, branch, commit, push, merge.</p>
+<p>A pull request is the <strong>merge</strong>, with a pause in it.</p>
+<p>Normally you would finish <code>week-1</code> and merge it into <code>main</code> yourself, alone, and nobody ever
+sees the work. Instead you push <code>week-1</code> to GitHub and say "I would like to merge this into
+main". GitHub holds the merge open. People read the code, ask questions, leave comments on
+specific lines. When it is approved, the merge happens.</p>
+<p>Same merge. Same two branches. The only new thing is that it happens in the open, and someone
+looks before the button is pressed. That is the entire idea, and it is how every team you will
+ever join ships code.</p>
+<p>So: nothing new to learn. You already have the skills. You are just merging in public.</p>
+<div class="markdown-heading"><h2 class="heading-element">Access: does Shina need to be added?</h2><a id="user-content-access-does-shina-need-to-be-added" class="anchor" aria-label="Permalink: Access: does Shina need to be added?" href="#access-does-shina-need-to-be-added"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Your repo is public, so he can already read everything and comment on any pull request without
+being added. But <strong>add him and each other as collaborators anyway</strong> so that review requests and
+notifications work properly:</p>
+<p>Repo → <strong>Settings</strong> → <strong>Collaborators</strong> → <strong>Add people</strong> →
+add <code>adexsimply</code> and your peer (<code>RotimiJude</code> or <code>Ayemo-AndrewGold</code>) → role <strong>Write</strong>.</p>
+<p>Do that once, now. You never touch it again.</p>
+<hr>
+<p>If you only read one thing, read this: <strong>you push every day, not once a week.</strong> The log for
+today must be on GitHub tonight. A folder full of logs pushed on Sunday counts as one day,
+and the bot will have opened an issue every night in between.</p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">Monday: start the week's branch</h2><a id="user-content-monday-start-the-weeks-branch" class="anchor" aria-label="Permalink: Monday: start the week's branch" href="#monday-start-the-weeks-branch"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-shell"><pre>git checkout main
+git pull
+git checkout -b week-1</pre></div>
+<p>You now work on <code>week-1</code> all week. <code>main</code> stays as it was until the PR is merged.</p>
+<div class="markdown-heading"><h2 class="heading-element">Every day: work, log, push</h2><a id="user-content-every-day-work-log-push" class="anchor" aria-label="Permalink: Every day: work, log, push" href="#every-day-work-log-push"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Do the hour. Then write today's log and push it:</p>
+<div class="highlight highlight-source-shell"><pre><span class="pl-c"><span class="pl-c">#</span> ... you did the work, files are changed ...</span>
+cp logs/TEMPLATE.md logs/2026-09-15.md     <span class="pl-c"><span class="pl-c">#</span> today's date</span>
+<span class="pl-c"><span class="pl-c">#</span> fill in the 5 lines</span>
+git add -A
+git commit -m <span class="pl-s"><span class="pl-pds">"</span>day 1: ssh keys working, started backup.sh<span class="pl-pds">"</span></span>
+git push</pre></div>
+<p>Three sentences and twenty focused minutes is a valid day. A day with no push is a missed day,
+and at 23:30 the bot opens an issue saying so. Close the issue by pushing the log.</p>
+<div class="markdown-heading"><h2 class="heading-element">Sunday, before 9pm: open the pull request</h2><a id="user-content-sunday-before-9pm-open-the-pull-request" class="anchor" aria-label="Permalink: Sunday, before 9pm: open the pull request" href="#sunday-before-9pm-open-the-pull-request"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<div class="highlight highlight-source-shell"><pre>git push
+gh pr create --base main --head week-1 --title <span class="pl-s"><span class="pl-pds">"</span>Week 1<span class="pl-pds">"</span></span></pre></div>
+<p>Or press the green "Compare &amp; pull request" button GitHub shows you.</p>
+<p>A form appears already filled with headings. Complete it. That filled-in form <strong>is</strong> the
+submission package. Nothing is emailed, nothing is uploaded anywhere else.</p>
+<div class="markdown-heading"><h3 class="heading-element">What a finished one looks like</h3><a id="user-content-what-a-finished-one-looks-like" class="anchor" aria-label="Permalink: What a finished one looks like" href="#what-a-finished-one-looks-like"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<blockquote>
+<div class="markdown-heading"><h2 class="heading-element">Week 1 submission</h2><a id="user-content-week-1-submission" class="anchor" aria-label="Permalink: Week 1 submission" href="#week-1-submission"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>What runs:</strong> <code>bash backup.sh ~/projects</code> creates <code>backup-2026-09-20.tar.gz</code> and skips
+<code>node_modules</code>. Tested on a fresh Ubuntu VM.</p>
+<p><strong>Done-when line met?</strong> yes</p>
+<p><strong>DSA:</strong> 3/3 · Two Sum 25 min · Best Time to Buy and Sell Stock 40 min (needed a hint on the
+running-minimum idea) · Contains Duplicate 10 min</p>
+<p><strong>What I'd do differently:</strong> I fought the tar flags for an hour before reading <code>man tar</code>.
+Next time I read the manual first.</p>
+<p><strong>Where I need review most:</strong> the error handling in <code>backup.sh</code> when the folder does not
+exist. I am not sure my exit codes are right.</p>
+<div class="markdown-heading"><h2 class="heading-element">Checklist</h2><a id="user-content-checklist" class="anchor" aria-label="Permalink: Checklist" href="#checklist"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<ul>
+<li>[x] 7 daily logs in <code>logs/</code>
+</li>
+<li>[x] No secrets committed</li>
+<li>[x] README updated if setup changed</li>
+<li>[x] A peer has reviewed this before mentor review</li>
+</ul>
+</blockquote>
+<p>Honest beats impressive. "Done-when met? partly" with a clear reason is a good submission.
+A vague "everything works" is not.</p>
+<div class="markdown-heading"><h2 class="heading-element">Monday: review each other</h2><a id="user-content-monday-review-each-other" class="anchor" aria-label="Permalink: Monday: review each other" href="#monday-review-each-other"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Open the other person's PR, read the code, leave <strong>at least two real comments</strong>. A real comment
+asks or points at something specific:</p>
+<ul>
+<li>"Why <code>chmod 777</code> here? Would 755 work?"</li>
+<li>"This breaks if the folder name has a space in it, try it."</li>
+</ul>
+<p>"Nice work 👍" is not a review.</p>
+<div class="markdown-heading"><h2 class="heading-element">By Wednesday: Shina reviews</h2><a id="user-content-by-wednesday-shina-reviews" class="anchor" aria-label="Permalink: By Wednesday: Shina reviews" href="#by-wednesday-shina-reviews"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>He approves, or requests changes. If he requests changes, push fixes to the same branch, the
+PR updates itself. Once approved, merge it, and start the next branch from <code>main</code>.</p>
+<hr>
+<div class="markdown-heading"><h2 class="heading-element">The fortnightly call</h2><a id="user-content-the-fortnightly-call" class="anchor" aria-label="Permalink: The fortnightly call" href="#the-fortnightly-call"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Sundays at 8pm, every second week: 27 Sep, 11 Oct, 25 Oct, 8 Nov, 22 Nov, 6 Dec. Sixty minutes.
+You demo what runs, ask what you could not solve in writing, and hear what the next fortnight is.</p>
+<p>The call is <strong>not</strong> where work gets submitted or checked. That happens in the PR, weekly, whether
+or not a call is happening. On the six weeks with no call, nothing changes: branch, push daily,
+PR by Sunday 9pm.</p>
+<p>The call holds even if only one person shows up.</p>
+<div class="markdown-heading"><h2 class="heading-element">If you use GitHub Desktop</h2><a id="user-content-if-you-use-github-desktop" class="anchor" aria-label="Permalink: If you use GitHub Desktop" href="#if-you-use-github-desktop"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>Everything above in buttons instead of commands.</p>
+<p><strong>Monday, start the week's branch</strong></p>
+<ol>
+<li>
+<code>Current Branch</code> dropdown → <strong>New Branch</strong> → name it <code>week-1</code> → <strong>Create Branch</strong>.</li>
+<li>Click <strong>Publish branch</strong> so it exists on GitHub too.</li>
+</ol>
+<p><strong>Every day</strong></p>
+<ol>
+<li>Do the work. Create <code>logs/2026-09-15.md</code> in your editor and fill it in.</li>
+<li>GitHub Desktop shows the changed files under <strong>Changes</strong>.</li>
+<li>Type a short summary at the bottom left, e.g. <code>day 1: ssh keys working</code>.</li>
+<li>Click <strong>Commit to week-1</strong>.</li>
+<li>Click <strong>Push origin</strong>. This is the step people forget. Nothing is on GitHub until you push.</li>
+</ol>
+<p><strong>Sunday, open the pull request</strong></p>
+<ol>
+<li>Push your last commit.</li>
+<li>Click <strong>Preview Pull Request</strong> (or menu <strong>Branch → Create Pull Request</strong>). Your browser opens.</li>
+<li>Check it says <code>base: main ← compare: week-1</code>.</li>
+<li>The description box is already filled with the headings. Complete them.</li>
+<li>Click <strong>Create pull request</strong>. You are done, that is the submission.</li>
+</ol>
+<p><strong>After it is approved</strong></p>
+<ol>
+<li>On the website, click <strong>Merge pull request</strong>.</li>
+<li>Back in GitHub Desktop: <code>Current Branch</code> → <code>main</code> → <strong>Fetch/Pull origin</strong>.</li>
+<li>New week, new branch from <code>main</code>.</li>
+</ol>
+<div class="markdown-heading"><h2 class="heading-element">Quick answers</h2><a id="user-content-quick-answers" class="anchor" aria-label="Permalink: Quick answers" href="#quick-answers"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p><strong>Do I push once a week?</strong> No. Daily. The bot checks nightly.</p>
+<p><strong>Can I commit straight to <code>main</code>?</strong> No. Then there is nothing to open a PR from.</p>
+<p><strong>I missed Tuesday.</strong> Log Wednesday and carry on. Two missed <em>weekly deliverables</em> pauses you,
+one missed daily log does not.</p>
+<p><strong>Finished early?</strong> Open the PR early. Reviews can start sooner.</p>
+<p><strong>Stuck more than 45 minutes?</strong> Write the blocker in the log and in the group. AI first, then
+your peer, then Shina.</p>
+<p><strong>We have never used PRs before.</strong> You have merged before. This is a merge with a review pause.
+Nothing else is different.</p>
+<p><strong>Do we add Shina as a collaborator?</strong> The repo is public so he can see it regardless, but yes,
+add him and each other with Write access. See the access section above.</p>
+<p><strong>Where does the review conversation happen?</strong> On the pull request page itself, on the
+"Files changed" tab. Click a line number to comment on that exact line.</p>
+
+</article>
+</div>
+</body>
+</html>
