@@ -132,9 +132,15 @@ today must be on GitHub tonight. A folder full of logs pushed on Sunday counts a
 and the bot will have opened an issue every night in between.</p>
 <hr>
 <div class="markdown-heading"><h2 class="heading-element">Monday: start the week's branch</h2><a id="user-content-monday-start-the-weeks-branch" class="anchor" aria-label="Permalink: Monday: start the week's branch" href="#monday-start-the-weeks-branch"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>The branch is named <code>week-1</code>, <code>week-2</code>, and so on. <strong>With the hyphen.</strong> It is a small thing, but
+three repos reviewed side by side are much easier to read when they are laid out identically.</p>
 <div class="highlight highlight-source-shell"><pre>git checkout main
 git pull
 git checkout -b week-1</pre></div>
+<p>Named it wrong already? Rename it, do not start over:</p>
+<div class="highlight highlight-source-shell"><pre>git branch -m week1 week-1
+git push origin -u week-1
+git push origin --delete week1</pre></div>
 <p>You now work on <code>week-1</code> all week. <code>main</code> stays as it was until the PR is merged.</p>
 <div class="markdown-heading"><h2 class="heading-element">Every day: work, log, push</h2><a id="user-content-every-day-work-log-push" class="anchor" aria-label="Permalink: Every day: work, log, push" href="#every-day-work-log-push"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Do the hour. Then write today's log and push it:</p>
@@ -194,6 +200,53 @@ You demo what runs, ask what you could not solve in writing, and hear what the n
 or not a call is happening. On the six weeks with no call, nothing changes: branch, push daily,
 PR by Sunday 9pm.</p>
 <p>The call holds even if only one person shows up.</p>
+<div class="markdown-heading"><h2 class="heading-element">Where the DSA solutions go</h2><a id="user-content-where-the-dsa-solutions-go" class="anchor" aria-label="Permalink: Where the DSA solutions go" href="#where-the-dsa-solutions-go"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
+<p>In <code>dsa/</code>. <strong>One file per problem, not one file per week</strong>, and not buried in the daily log.</p>
+<pre><code>dsa/two-sum.md
+dsa/contains-duplicate.md
+dsa/best-time-to-buy-and-sell-stock.md
+</code></pre>
+<p>Each file has three parts, in this order:</p>
+<div class="highlight highlight-text-md"><pre><span class="pl-mh"># <span class="pl-en">Two Sum</span></span>
+
+Given an array of numbers and a target, return the indices of the two
+numbers that add up to the target.
+
+<span class="pl-mh">## <span class="pl-en">Approach</span></span>
+
+Walk the array once. For each number, work out what its partner would
+have to be (target minus this number) and check whether we have already
+seen that partner. If we have, we are done. If not, remember this number
+and where it was.
+
+<span class="pl-mh">## <span class="pl-en">Code</span></span>
+
+​```js
+function twoSum(nums, target) {
+  const seen = new Map();
+  for (let i = 0; i &lt; nums.length; i++) {
+    const needed = target - nums<span class="pl-s">[</span>i<span class="pl-s">]</span>;
+    if (seen.has(needed)) return <span class="pl-s">[</span>seen.get(needed), i<span class="pl-s">]</span>;
+    seen.set(nums<span class="pl-s">[</span>i<span class="pl-s">]</span>, i);
+  }
+}
+​```
+
+<span class="pl-mh">## <span class="pl-en">Complexity</span></span>
+
+O(n) time, because we touch each number once.
+O(n) space, because the Map can grow to the size of the input.
+
+Brute force would be O(n²) time and O(1) space. The Map buys time with space.</pre></div>
+<p><strong>The approach goes first, in plain English, before any code.</strong> If you cannot say what
+you are going to do in three sentences, you are not ready to type. That section is the
+part being marked, not the code.</p>
+<p><strong>Why a folder and not the log.</strong> The log is a diary — it is ordered by date and you will
+never read it again. <code>dsa/</code> is a reference. By the end of the cycle it holds three dozen
+problems, each with the approach that worked and the trade-off you made. That folder is
+what you revise from the night before an interview. The log cannot do that job.</p>
+<p>Still mention the problem in the day's log, one line, with how long it took. Then the
+solution itself lives in <code>dsa/</code>.</p>
 <div class="markdown-heading"><h2 class="heading-element">If you use GitHub Desktop</h2><a id="user-content-if-you-use-github-desktop" class="anchor" aria-label="Permalink: If you use GitHub Desktop" href="#if-you-use-github-desktop"><span aria-hidden="true" class="octicon octicon-link"></span></a></div>
 <p>Everything above in buttons instead of commands.</p>
 <p><strong>Monday, start the week's branch</strong></p>
@@ -251,8 +304,9 @@ this programme actually cares about.</p>
 <p><strong>I missed Tuesday.</strong> Log Wednesday and carry on. Two missed <em>weekly deliverables</em> pauses you,
 one missed daily log does not.</p>
 <p><strong>Finished early?</strong> Open the PR early. Reviews can start sooner.</p>
-<p><strong>Stuck more than 45 minutes?</strong> Write the blocker in the log and in the group. AI first, then
-your peer, then Shina.</p>
+<p><strong>Stuck more than 45 minutes?</strong> Write it on the <strong>Blocked on</strong> line in that day's log. That line is
+pulled out automatically and shown to Shina, so writing it there is how you ask for help without
+having to chase anyone. Put "nothing" when you are not stuck. AI first, then your peer, then Shina.</p>
 <p><strong>We have never used PRs before.</strong> You have merged before. This is a merge with a review pause.
 Nothing else is different.</p>
 <p><strong>Do we add Shina as a collaborator?</strong> The repo is public so he can see it regardless, but yes,
@@ -261,6 +315,8 @@ add him and each other with Write access. See the access section above.</p>
 "Files changed" tab. Click a line number to comment on that exact line.</p>
 <p><strong>Am I allowed to use AI?</strong> Yes. See the section above. Declare it, and be able to explain and
 change what you ship.</p>
+<p><strong>Where do DSA solutions go?</strong> <code>dsa/</code>, one file per problem, approach in plain English before
+the code. See the section above.</p>
 
 </article>
 </div>
